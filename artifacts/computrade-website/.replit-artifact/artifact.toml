@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Arena Trading Website"
+description = "The Arena Trading business website and technology marketplace for business customers, with product browsing, quote requests, company information, document management, and administration."
+version = "1.0.0"
+id = "artifacts/computrade-website"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24268
+
+[services.development]
+run = "pnpm --filter @workspace/computrade-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/computrade-website", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/computrade-website/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24268"
+BASE_PATH = "/"
