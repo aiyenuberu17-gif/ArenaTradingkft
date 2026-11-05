@@ -1,0 +1,370 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: products
+    description: Marketplace product operations
+  - name: about
+    description: Public About page and admin content operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /products:
+    get:
+      operationId: listProducts
+      tags: [products]
+      summary: List marketplace products
+      responses:
+        "200":
+          description: Marketplace products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      operationId: createProduct
+      tags: [products]
+      summary: Create a marketplace product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+      responses:
+        "201":
+          description: Created marketplace product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Invalid product
+        "401":
+          description: Admin authentication required
+  /products/{id}:
+    delete:
+      operationId: deleteProduct
+      tags: [products]
+      summary: Delete a marketplace product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Product deleted
+        "401":
+          description: Admin authentication required
+        "404":
+          description: Product not found
+  /about:
+    get:
+      operationId: getAbout
+      tags: [about]
+      summary: Get the public About page
+      responses:
+        "200":
+          description: About page content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AboutPage"
+    put:
+      operationId: updateAbout
+      tags: [about]
+      summary: Update the About page hero content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AboutPageInput"
+      responses:
+        "200":
+          description: Updated About page
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AboutPage"
+        "401":
+          description: Admin authentication required
+  /about/segments:
+    post:
+      operationId: createAboutSegment
+      tags: [about]
+      summary: Add an About page segment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AboutSegmentInput"
+      responses:
+        "201":
+          description: Created About segment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AboutSegment"
+        "401":
+          description: Admin authentication required
+  /about/segments/{id}:
+    patch:
+      operationId: updateAboutSegment
+      tags: [about]
+      summary: Edit an About page segment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AboutSegmentInput"
+      responses:
+        "200":
+          description: Updated About segment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AboutSegment"
+        "401":
+          description: Admin authentication required
+        "404":
+          description: About segment not found
+    delete:
+      operationId: deleteAboutSegment
+      tags: [about]
+      summary: Remove an About page segment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: About segment deleted
+        "401":
+          description: Admin authentication required
+        "404":
+          description: About segment not found
+  /uploads/about-image:
+    post:
+      operationId: uploadAboutImage
+      tags: [about]
+      summary: Upload an About page image
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/webp:
+            schema:
+              type: string
+              format: binary
+          image/gif:
+            schema:
+              type: string
+              format: binary
+      responses:
+        "201":
+          description: Uploaded About image
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [imagePath]
+                properties:
+                  imagePath:
+                    type: string
+        "400":
+          description: Invalid or missing image
+        "401":
+          description: Admin authentication required
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Product:
+      type: object
+      required: [id, brand, name, type, category, detail, color, mark, availability]
+      properties:
+        id:
+          type: number
+          format: integer
+        brand:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        category:
+          type: string
+        detail:
+          type: string
+        color:
+          type: string
+        mark:
+          type: string
+        availability:
+          type: string
+        imagePath:
+          type: string
+          nullable: true
+    ProductInput:
+      type: object
+      required: [brand, name, type, category, detail, color, mark, availability]
+      properties:
+        brand:
+          type: string
+          minLength: 1
+        name:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          minLength: 1
+        category:
+          type: string
+          minLength: 1
+        detail:
+          type: string
+          minLength: 1
+        color:
+          type: string
+          pattern: "^#[0-9a-fA-F]{6}$"
+        mark:
+          type: string
+          minLength: 1
+          maxLength: 4
+        availability:
+          type: string
+          minLength: 1
+        imagePath:
+          type: string
+          nullable: true
+    AboutPage:
+      type: object
+      required: [id, eyebrow, title, intro, segments]
+      properties:
+        id:
+          type: number
+          format: integer
+        eyebrow:
+          type: string
+        title:
+          type: string
+        intro:
+          type: string
+        imagePath:
+          type: string
+          nullable: true
+        segments:
+          type: array
+          items:
+            $ref: "#/components/schemas/AboutSegment"
+    AboutPageInput:
+      type: object
+      required: [eyebrow, title, intro]
+      properties:
+        eyebrow:
+          type: string
+          minLength: 1
+        title:
+          type: string
+          minLength: 1
+        intro:
+          type: string
+          minLength: 1
+        imagePath:
+          type: string
+          nullable: true
+    AboutSegment:
+      type: object
+      required: [id, eyebrow, title, body, imagePosition, sortOrder]
+      properties:
+        id:
+          type: number
+          format: integer
+        eyebrow:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+        imagePath:
+          type: string
+          nullable: true
+        imagePosition:
+          type: string
+          enum: [left, right]
+        sortOrder:
+          type: number
+          format: integer
+    AboutSegmentInput:
+      type: object
+      required: [eyebrow, title, body, imagePosition, sortOrder]
+      properties:
+        eyebrow:
+          type: string
+          minLength: 1
+        title:
+          type: string
+          minLength: 1
+        body:
+          type: string
+          minLength: 1
+        imagePath:
+          type: string
+          nullable: true
+        imagePosition:
+          type: string
+          enum: [left, right]
+        sortOrder:
+          type: number
+          format: integer
+
