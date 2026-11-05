@@ -134,7 +134,7 @@ async function ensureBucket(
 
 export async function uploadImage(
   body: Buffer,
-  folder: "products" | "about" | "documents/previews",
+  folder: "products" | "about" | "documents/previews" | "documents/branding",
 ): Promise<string> {
   if (body.length === 0 || body.length > MAX_FILE_SIZE) {
     throw new Error("Image must be between 1 byte and 5 MB");

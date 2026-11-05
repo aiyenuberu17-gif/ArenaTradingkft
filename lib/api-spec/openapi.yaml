@@ -14,6 +14,8 @@ tags:
     description: Marketplace product operations
   - name: about
     description: Public About page and admin content operations
+  - name: businessDocuments
+    description: Admin invoice, receipt, and shipping document operations
 paths:
   /healthz:
     get:
@@ -220,6 +222,198 @@ paths:
           description: Invalid or missing image
         "401":
           description: Admin authentication required
+  /uploads/document-branding-image:
+    post:
+      operationId: uploadDocumentBrandingImage
+      tags: [businessDocuments]
+      summary: Upload a business document logo or stamp
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+          image/jpeg:
+            schema:
+              type: string
+              format: binary
+          image/png:
+            schema:
+              type: string
+              format: binary
+          image/webp:
+            schema:
+              type: string
+              format: binary
+          image/gif:
+            schema:
+              type: string
+              format: binary
+      responses:
+        "201":
+          description: Uploaded document branding image
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentBrandingImage"
+        "400":
+          description: Invalid or missing image
+        "401":
+          description: Admin authentication required
+  /admin/document-settings:
+    get:
+      operationId: getBusinessDocumentSettings
+      tags: [businessDocuments]
+      summary: Get business document branding and defaults
+      responses:
+        "200":
+          description: Business document settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessDocumentSettings"
+        "401":
+          description: Admin authentication required
+    put:
+      operationId: updateBusinessDocumentSettings
+      tags: [businessDocuments]
+      summary: Save business document branding and defaults
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BusinessDocumentSettingsInput"
+      responses:
+        "200":
+          description: Updated business document settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessDocumentSettings"
+        "400":
+          description: Invalid settings
+        "401":
+          description: Admin authentication required
+  /admin/business-documents:
+    get:
+      operationId: listBusinessDocuments
+      tags: [businessDocuments]
+      summary: List generated invoices, receipts, and shipping documents
+      responses:
+        "200":
+          description: Generated business documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BusinessDocument"
+        "401":
+          description: Admin authentication required
+    post:
+      operationId: createBusinessDocument
+      tags: [businessDocuments]
+      summary: Create a business document draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BusinessDocumentInput"
+      responses:
+        "201":
+          description: Created business document draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessDocument"
+        "400":
+          description: Invalid business document
+        "401":
+          description: Admin authentication required
+  /admin/business-documents/{id}:
+    patch:
+      operationId: updateBusinessDocument
+      tags: [businessDocuments]
+      summary: Update a business document draft
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BusinessDocumentInput"
+      responses:
+        "200":
+          description: Updated business document
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessDocument"
+        "400":
+          description: Invalid business document
+        "401":
+          description: Admin authentication required
+        "404":
+          description: Business document not found
+        "409":
+          description: Only drafts can be edited
+    delete:
+      operationId: deleteBusinessDocument
+      tags: [businessDocuments]
+      summary: Delete a business document draft
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Draft deleted
+        "401":
+          description: Admin authentication required
+        "404":
+          description: Business document not found
+        "409":
+          description: Only drafts can be deleted
+  /admin/business-documents/{id}/status:
+    patch:
+      operationId: updateBusinessDocumentStatus
+      tags: [businessDocuments]
+      summary: Advance a business document status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BusinessDocumentStatusInput"
+      responses:
+        "200":
+          description: Updated business document status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessDocument"
+        "400":
+          description: Invalid status transition
+        "401":
+          description: Admin authentication required
+        "404":
+          description: Business document not found
 components:
   schemas:
     HealthStatus:
@@ -367,4 +561,161 @@ components:
         sortOrder:
           type: number
           format: integer
+    DocumentBrandingImage:
+      type: object
+      required: [imagePath]
+      properties:
+        imagePath:
+          type: string
+    BusinessDocumentSettings:
+      type: object
+      required: [companyName, legalName, address, city, postalCode, country, phone, email, website, taxId, registrationNumber, currency, logoUrl, stampUrl, includeStampByDefault, brandColor, invoicePrefix, receiptPrefix, shippingPrefix, paymentInstructions, footerNote]
+      properties:
+        companyName: { type: string }
+        legalName: { type: string }
+        address: { type: string }
+        city: { type: string }
+        postalCode: { type: string }
+        country: { type: string }
+        phone: { type: string }
+        email: { type: string }
+        website: { type: string }
+        taxId: { type: string }
+        registrationNumber: { type: string }
+        currency: { type: string, pattern: "^[A-Z]{3}$" }
+        logoUrl: { type: string }
+        stampUrl: { type: string }
+        includeStampByDefault: { type: boolean }
+        brandColor: { type: string, pattern: "^#[0-9A-Fa-f]{6}$" }
+        invoicePrefix: { type: string, minLength: 1, maxLength: 12 }
+        receiptPrefix: { type: string, minLength: 1, maxLength: 12 }
+        shippingPrefix: { type: string, minLength: 1, maxLength: 12 }
+        paymentInstructions: { type: string }
+        footerNote: { type: string }
+    BusinessDocumentSettingsInput:
+      type: object
+      required: [companyName, legalName, address, city, postalCode, country, phone, email, website, taxId, registrationNumber, currency, logoUrl, stampUrl, includeStampByDefault, brandColor, invoicePrefix, receiptPrefix, shippingPrefix, paymentInstructions, footerNote]
+      properties:
+        companyName: { type: string, minLength: 1, maxLength: 160 }
+        legalName: { type: string, maxLength: 160 }
+        address: { type: string, maxLength: 240 }
+        city: { type: string, maxLength: 120 }
+        postalCode: { type: string, maxLength: 32 }
+        country: { type: string, maxLength: 120 }
+        phone: { type: string, maxLength: 80 }
+        email: { type: string, maxLength: 254 }
+        website: { type: string, maxLength: 254 }
+        taxId: { type: string, maxLength: 100 }
+        registrationNumber: { type: string, maxLength: 100 }
+        currency: { type: string, pattern: "^[A-Z]{3}$" }
+        logoUrl: { type: string, maxLength: 2048 }
+        stampUrl: { type: string, maxLength: 2048 }
+        includeStampByDefault: { type: boolean }
+        brandColor: { type: string, pattern: "^#[0-9A-Fa-f]{6}$" }
+        invoicePrefix: { type: string, minLength: 1, maxLength: 12 }
+        receiptPrefix: { type: string, minLength: 1, maxLength: 12 }
+        shippingPrefix: { type: string, minLength: 1, maxLength: 12 }
+        paymentInstructions: { type: string, maxLength: 2000 }
+        footerNote: { type: string, maxLength: 2000 }
+    BusinessDocumentItemInput:
+      type: object
+      required: [description, quantity, unitPrice, taxRate]
+      properties:
+        description: { type: string, minLength: 1, maxLength: 240 }
+        sku: { type: string, maxLength: 100 }
+        quantity: { type: number, minimum: 0.01 }
+        unitPrice: { type: number, minimum: 0 }
+        taxRate: { type: number, minimum: 0, maximum: 100 }
+    BusinessDocumentItem:
+      type: object
+      required: [description, sku, quantity, unitPrice, taxRate, lineTotal]
+      properties:
+        description: { type: string }
+        sku: { type: string }
+        quantity: { type: number }
+        unitPrice: { type: number }
+        taxRate: { type: number }
+        lineTotal: { type: number }
+    BusinessDocumentInput:
+      type: object
+      required: [documentType, issueDate, customerName, customerAddress, items, currency, shippingAmount, notes, terms, carrier, service, trackingNumber, paymentMethod, includeStamp]
+      properties:
+        documentType: { type: string, enum: [invoice, receipt, shipping] }
+        issueDate: { type: string }
+        dueDate: { type: [string, "null"] }
+        customerName: { type: string, minLength: 1, maxLength: 160 }
+        customerCompany: { type: [string, "null"], maxLength: 160 }
+        customerEmail: { type: [string, "null"], maxLength: 254 }
+        customerPhone: { type: [string, "null"], maxLength: 80 }
+        customerTaxId: { type: [string, "null"], maxLength: 100 }
+        customerAddress: { type: string, maxLength: 1200 }
+        shipToName: { type: [string, "null"], maxLength: 160 }
+        shipToAddress: { type: [string, "null"], maxLength: 1200 }
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/BusinessDocumentItemInput"
+        currency: { type: string, pattern: "^[A-Z]{3}$" }
+        shippingAmount: { type: number, minimum: 0 }
+        notes: { type: string, maxLength: 4000 }
+        terms: { type: string, maxLength: 4000 }
+        carrier: { type: string, maxLength: 120 }
+        service: { type: string, maxLength: 120 }
+        trackingNumber: { type: string, maxLength: 160 }
+        shippingDate: { type: [string, "null"] }
+        packageWeight: { type: ["number", "null"], minimum: 0 }
+        packageLength: { type: ["number", "null"], minimum: 0 }
+        packageWidth: { type: ["number", "null"], minimum: 0 }
+        packageHeight: { type: ["number", "null"], minimum: 0 }
+        paymentMethod: { type: string, maxLength: 120 }
+        includeStamp: { type: boolean }
+    BusinessDocumentStatusInput:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string, enum: [issued, paid, shipped, delivered, void] }
+    BusinessDocument:
+      type: object
+      required: [id, number, documentType, status, issueDate, dueDate, customerName, customerCompany, customerEmail, customerPhone, customerTaxId, customerAddress, shipToName, shipToAddress, items, currency, subtotal, taxAmount, shippingAmount, total, notes, terms, carrier, service, trackingNumber, shippingDate, packageWeight, packageLength, packageWidth, packageHeight, paymentMethod, includeStamp, companySnapshot, createdAt, updatedAt]
+      properties:
+        id: { type: number, format: integer }
+        number: { type: string }
+        documentType: { type: string, enum: [invoice, receipt, shipping] }
+        status: { type: string, enum: [draft, issued, paid, shipped, delivered, void] }
+        issueDate: { type: string }
+        dueDate: { type: [string, "null"] }
+        customerName: { type: string }
+        customerCompany: { type: [string, "null"] }
+        customerEmail: { type: [string, "null"] }
+        customerPhone: { type: [string, "null"] }
+        customerTaxId: { type: [string, "null"] }
+        customerAddress: { type: string }
+        shipToName: { type: [string, "null"] }
+        shipToAddress: { type: [string, "null"] }
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/BusinessDocumentItem"
+        currency: { type: string }
+        subtotal: { type: number }
+        taxAmount: { type: number }
+        shippingAmount: { type: number }
+        total: { type: number }
+        notes: { type: string }
+        terms: { type: string }
+        carrier: { type: string }
+        service: { type: string }
+        trackingNumber: { type: string }
+        shippingDate: { type: [string, "null"] }
+        packageWeight: { type: ["number", "null"] }
+        packageLength: { type: ["number", "null"] }
+        packageWidth: { type: ["number", "null"] }
+        packageHeight: { type: ["number", "null"] }
+        paymentMethod: { type: string }
+        includeStamp: { type: boolean }
+        companySnapshot:
+          $ref: "#/components/schemas/BusinessDocumentSettings"
+        createdAt: { type: string }
+        updatedAt: { type: string }
 

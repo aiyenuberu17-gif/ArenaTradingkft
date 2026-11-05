@@ -102,6 +102,312 @@ export interface AboutSegmentInput {
   sortOrder: number;
 }
 
+export interface DocumentBrandingImage {
+  imagePath: string;
+}
+
+export interface BusinessDocumentSettings {
+  companyName: string;
+  legalName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+  email: string;
+  website: string;
+  taxId: string;
+  registrationNumber: string;
+  /** @pattern ^[A-Z]{3}$ */
+  currency: string;
+  logoUrl: string;
+  stampUrl: string;
+  includeStampByDefault: boolean;
+  /** @pattern ^#[0-9A-Fa-f]{6}$ */
+  brandColor: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  invoicePrefix: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  receiptPrefix: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  shippingPrefix: string;
+  paymentInstructions: string;
+  footerNote: string;
+}
+
+export interface BusinessDocumentSettingsInput {
+  /**
+     * @minLength 1
+     * @maxLength 160
+     */
+  companyName: string;
+  /** @maxLength 160 */
+  legalName: string;
+  /** @maxLength 240 */
+  address: string;
+  /** @maxLength 120 */
+  city: string;
+  /** @maxLength 32 */
+  postalCode: string;
+  /** @maxLength 120 */
+  country: string;
+  /** @maxLength 80 */
+  phone: string;
+  /** @maxLength 254 */
+  email: string;
+  /** @maxLength 254 */
+  website: string;
+  /** @maxLength 100 */
+  taxId: string;
+  /** @maxLength 100 */
+  registrationNumber: string;
+  /** @pattern ^[A-Z]{3}$ */
+  currency: string;
+  /** @maxLength 2048 */
+  logoUrl: string;
+  /** @maxLength 2048 */
+  stampUrl: string;
+  includeStampByDefault: boolean;
+  /** @pattern ^#[0-9A-Fa-f]{6}$ */
+  brandColor: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  invoicePrefix: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  receiptPrefix: string;
+  /**
+     * @minLength 1
+     * @maxLength 12
+     */
+  shippingPrefix: string;
+  /** @maxLength 2000 */
+  paymentInstructions: string;
+  /** @maxLength 2000 */
+  footerNote: string;
+}
+
+export interface BusinessDocumentItemInput {
+  /**
+     * @minLength 1
+     * @maxLength 240
+     */
+  description: string;
+  /** @maxLength 100 */
+  sku?: string;
+  /** @minimum 0.01 */
+  quantity: number;
+  /** @minimum 0 */
+  unitPrice: number;
+  /**
+     * @minimum 0
+     * @maximum 100
+     */
+  taxRate: number;
+}
+
+export interface BusinessDocumentItem {
+  description: string;
+  sku: string;
+  quantity: number;
+  unitPrice: number;
+  taxRate: number;
+  lineTotal: number;
+}
+
+export type BusinessDocumentInputDocumentType = typeof BusinessDocumentInputDocumentType[keyof typeof BusinessDocumentInputDocumentType];
+
+
+export const BusinessDocumentInputDocumentType = {
+  invoice: 'invoice',
+  receipt: 'receipt',
+  shipping: 'shipping',
+} as const;
+
+export interface BusinessDocumentInput {
+  documentType: BusinessDocumentInputDocumentType;
+  issueDate: string;
+  /** @nullable */
+  dueDate?: string | null;
+  /**
+     * @minLength 1
+     * @maxLength 160
+     */
+  customerName: string;
+  /**
+     * @maxLength 160
+     * @nullable
+     */
+  customerCompany?: string | null;
+  /**
+     * @maxLength 254
+     * @nullable
+     */
+  customerEmail?: string | null;
+  /**
+     * @maxLength 80
+     * @nullable
+     */
+  customerPhone?: string | null;
+  /**
+     * @maxLength 100
+     * @nullable
+     */
+  customerTaxId?: string | null;
+  /** @maxLength 1200 */
+  customerAddress: string;
+  /**
+     * @maxLength 160
+     * @nullable
+     */
+  shipToName?: string | null;
+  /**
+     * @maxLength 1200
+     * @nullable
+     */
+  shipToAddress?: string | null;
+  /** @minItems 1 */
+  items: BusinessDocumentItemInput[];
+  /** @pattern ^[A-Z]{3}$ */
+  currency: string;
+  /** @minimum 0 */
+  shippingAmount: number;
+  /** @maxLength 4000 */
+  notes: string;
+  /** @maxLength 4000 */
+  terms: string;
+  /** @maxLength 120 */
+  carrier: string;
+  /** @maxLength 120 */
+  service: string;
+  /** @maxLength 160 */
+  trackingNumber: string;
+  /** @nullable */
+  shippingDate?: string | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  packageWeight?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  packageLength?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  packageWidth?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  packageHeight?: number | null;
+  /** @maxLength 120 */
+  paymentMethod: string;
+  includeStamp: boolean;
+}
+
+export type BusinessDocumentStatusInputStatus = typeof BusinessDocumentStatusInputStatus[keyof typeof BusinessDocumentStatusInputStatus];
+
+
+export const BusinessDocumentStatusInputStatus = {
+  issued: 'issued',
+  paid: 'paid',
+  shipped: 'shipped',
+  delivered: 'delivered',
+  void: 'void',
+} as const;
+
+export interface BusinessDocumentStatusInput {
+  status: BusinessDocumentStatusInputStatus;
+}
+
+export type BusinessDocumentDocumentType = typeof BusinessDocumentDocumentType[keyof typeof BusinessDocumentDocumentType];
+
+
+export const BusinessDocumentDocumentType = {
+  invoice: 'invoice',
+  receipt: 'receipt',
+  shipping: 'shipping',
+} as const;
+
+export type BusinessDocumentStatus = typeof BusinessDocumentStatus[keyof typeof BusinessDocumentStatus];
+
+
+export const BusinessDocumentStatus = {
+  draft: 'draft',
+  issued: 'issued',
+  paid: 'paid',
+  shipped: 'shipped',
+  delivered: 'delivered',
+  void: 'void',
+} as const;
+
+export interface BusinessDocument {
+  id: number;
+  number: string;
+  documentType: BusinessDocumentDocumentType;
+  status: BusinessDocumentStatus;
+  issueDate: string;
+  /** @nullable */
+  dueDate: string | null;
+  customerName: string;
+  /** @nullable */
+  customerCompany: string | null;
+  /** @nullable */
+  customerEmail: string | null;
+  /** @nullable */
+  customerPhone: string | null;
+  /** @nullable */
+  customerTaxId: string | null;
+  customerAddress: string;
+  /** @nullable */
+  shipToName: string | null;
+  /** @nullable */
+  shipToAddress: string | null;
+  items: BusinessDocumentItem[];
+  currency: string;
+  subtotal: number;
+  taxAmount: number;
+  shippingAmount: number;
+  total: number;
+  notes: string;
+  terms: string;
+  carrier: string;
+  service: string;
+  trackingNumber: string;
+  /** @nullable */
+  shippingDate: string | null;
+  /** @nullable */
+  packageWeight: number | null;
+  /** @nullable */
+  packageLength: number | null;
+  /** @nullable */
+  packageWidth: number | null;
+  /** @nullable */
+  packageHeight: number | null;
+  paymentMethod: string;
+  includeStamp: boolean;
+  companySnapshot: BusinessDocumentSettings;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type UploadAboutImage201 = {
   imagePath: string;
 };

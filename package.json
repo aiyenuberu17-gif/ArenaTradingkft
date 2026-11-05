@@ -12,7 +12,7 @@
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
     ,
-    "start:migrate": "node lib/db/scripts/apply-sql.js lib/db/migrations/20260811_create_company_documents.sql && node --enable-source-maps artifacts/api-server/dist/index.mjs"
+    "start:migrate": "node lib/db/scripts/apply-sql.js lib/db/migrations/20260811_create_company_documents.sql && node lib/db/scripts/apply-sql.js lib/db/migrations/20261105_create_business_documents.sql && node --enable-source-maps artifacts/api-server/dist/index.mjs"
   },
   "private": true,
   "dependencies": {

@@ -44,6 +44,7 @@ import { ArrowDownRight, ArrowRight, Building2, Check, ChevronDown, ChevronLeft,
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { type SupportedLanguage, useTranslation, I18nProvider } from '@/lib/i18n';
 import { OfficialDocumentsSection, CompanyDocumentsManagement } from '@/components/company-documents';
+import BusinessDocumentsStudio from '@/components/business-documents-studio';
 
 const queryClient = new QueryClient();
 
@@ -1398,9 +1399,9 @@ function AdminSettings() {
       </header>
       <main className="container-wide py-14 sm:py-20">
         <div className="max-w-3xl">
-          <p className="eyebrow text-[#00a676]">Admin · Website settings</p>
-          <h1 className="mt-4 font-display text-[clamp(2.4rem,5vw,4.5rem)] font-extrabold leading-[1.04] tracking-[-.065em]">Keep your contact channels current.</h1>
-          <p className="mt-5 max-w-2xl text-[16px] leading-8 text-slate-600">Configure the WhatsApp number shown in the floating contact button across the public website and marketplace.</p>
+          <p className="eyebrow text-[#00a676]">Admin · Business operations</p>
+          <h1 className="mt-4 font-display text-[clamp(2.4rem,5vw,4.5rem)] font-extrabold leading-[1.04] tracking-[-.065em]">Manage the details behind every delivery.</h1>
+          <p className="mt-5 max-w-2xl text-[16px] leading-8 text-slate-600">Configure customer contact channels, quote requests, and branded invoices, receipts, and shipping paperwork.</p>
         </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_.72fr]">
           <section className="rounded-2xl border border-[#dce6ec] bg-white p-6 shadow-[0_5px_20px_rgba(11,31,58,.05)] sm:p-8">
@@ -1454,6 +1455,7 @@ function AdminSettings() {
             </form>
           </section>
         </div>
+        <BusinessDocumentsStudio />
         <ProductManagement />
          <AboutManagement />
          <CompanyDocumentsManagement />

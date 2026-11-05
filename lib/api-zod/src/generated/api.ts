@@ -217,3 +217,674 @@ export const UploadAboutImageResponse = zod.object({
 })
 
 
+/**
+ * @summary Upload a business document logo or stamp
+ */
+export const UploadDocumentBrandingImageResponse = zod.object({
+  "imagePath": zod.string()
+})
+
+
+/**
+ * @summary Get business document branding and defaults
+ */
+export const getBusinessDocumentSettingsResponseCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const getBusinessDocumentSettingsResponseBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const getBusinessDocumentSettingsResponseInvoicePrefixMax = 12;
+
+export const getBusinessDocumentSettingsResponseReceiptPrefixMax = 12;
+
+export const getBusinessDocumentSettingsResponseShippingPrefixMax = 12;
+
+
+
+export const GetBusinessDocumentSettingsResponse = zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(getBusinessDocumentSettingsResponseCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(getBusinessDocumentSettingsResponseBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(getBusinessDocumentSettingsResponseInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(getBusinessDocumentSettingsResponseReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(getBusinessDocumentSettingsResponseShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+})
+
+
+/**
+ * @summary Save business document branding and defaults
+ */
+export const updateBusinessDocumentSettingsBodyCompanyNameMax = 160;
+
+export const updateBusinessDocumentSettingsBodyLegalNameMax = 160;
+
+export const updateBusinessDocumentSettingsBodyAddressMax = 240;
+
+export const updateBusinessDocumentSettingsBodyCityMax = 120;
+
+export const updateBusinessDocumentSettingsBodyPostalCodeMax = 32;
+
+export const updateBusinessDocumentSettingsBodyCountryMax = 120;
+
+export const updateBusinessDocumentSettingsBodyPhoneMax = 80;
+
+export const updateBusinessDocumentSettingsBodyEmailMax = 254;
+
+export const updateBusinessDocumentSettingsBodyWebsiteMax = 254;
+
+export const updateBusinessDocumentSettingsBodyTaxIdMax = 100;
+
+export const updateBusinessDocumentSettingsBodyRegistrationNumberMax = 100;
+
+export const updateBusinessDocumentSettingsBodyCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const updateBusinessDocumentSettingsBodyLogoUrlMax = 2048;
+
+export const updateBusinessDocumentSettingsBodyStampUrlMax = 2048;
+
+export const updateBusinessDocumentSettingsBodyBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const updateBusinessDocumentSettingsBodyInvoicePrefixMax = 12;
+
+export const updateBusinessDocumentSettingsBodyReceiptPrefixMax = 12;
+
+export const updateBusinessDocumentSettingsBodyShippingPrefixMax = 12;
+
+export const updateBusinessDocumentSettingsBodyPaymentInstructionsMax = 2000;
+
+export const updateBusinessDocumentSettingsBodyFooterNoteMax = 2000;
+
+
+
+export const UpdateBusinessDocumentSettingsBody = zod.object({
+  "companyName": zod.string().min(1).max(updateBusinessDocumentSettingsBodyCompanyNameMax),
+  "legalName": zod.string().max(updateBusinessDocumentSettingsBodyLegalNameMax),
+  "address": zod.string().max(updateBusinessDocumentSettingsBodyAddressMax),
+  "city": zod.string().max(updateBusinessDocumentSettingsBodyCityMax),
+  "postalCode": zod.string().max(updateBusinessDocumentSettingsBodyPostalCodeMax),
+  "country": zod.string().max(updateBusinessDocumentSettingsBodyCountryMax),
+  "phone": zod.string().max(updateBusinessDocumentSettingsBodyPhoneMax),
+  "email": zod.string().max(updateBusinessDocumentSettingsBodyEmailMax),
+  "website": zod.string().max(updateBusinessDocumentSettingsBodyWebsiteMax),
+  "taxId": zod.string().max(updateBusinessDocumentSettingsBodyTaxIdMax),
+  "registrationNumber": zod.string().max(updateBusinessDocumentSettingsBodyRegistrationNumberMax),
+  "currency": zod.string().regex(updateBusinessDocumentSettingsBodyCurrencyRegExp),
+  "logoUrl": zod.string().max(updateBusinessDocumentSettingsBodyLogoUrlMax),
+  "stampUrl": zod.string().max(updateBusinessDocumentSettingsBodyStampUrlMax),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(updateBusinessDocumentSettingsBodyBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(updateBusinessDocumentSettingsBodyInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(updateBusinessDocumentSettingsBodyReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(updateBusinessDocumentSettingsBodyShippingPrefixMax),
+  "paymentInstructions": zod.string().max(updateBusinessDocumentSettingsBodyPaymentInstructionsMax),
+  "footerNote": zod.string().max(updateBusinessDocumentSettingsBodyFooterNoteMax)
+})
+
+export const updateBusinessDocumentSettingsResponseCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const updateBusinessDocumentSettingsResponseBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const updateBusinessDocumentSettingsResponseInvoicePrefixMax = 12;
+
+export const updateBusinessDocumentSettingsResponseReceiptPrefixMax = 12;
+
+export const updateBusinessDocumentSettingsResponseShippingPrefixMax = 12;
+
+
+
+export const UpdateBusinessDocumentSettingsResponse = zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(updateBusinessDocumentSettingsResponseCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(updateBusinessDocumentSettingsResponseBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(updateBusinessDocumentSettingsResponseInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(updateBusinessDocumentSettingsResponseReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(updateBusinessDocumentSettingsResponseShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+})
+
+
+/**
+ * @summary List generated invoices, receipts, and shipping documents
+ */
+export const listBusinessDocumentsResponseCompanySnapshotCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const listBusinessDocumentsResponseCompanySnapshotBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const listBusinessDocumentsResponseCompanySnapshotInvoicePrefixMax = 12;
+
+export const listBusinessDocumentsResponseCompanySnapshotReceiptPrefixMax = 12;
+
+export const listBusinessDocumentsResponseCompanySnapshotShippingPrefixMax = 12;
+
+
+
+export const ListBusinessDocumentsResponseItem = zod.object({
+  "id": zod.number(),
+  "number": zod.string(),
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "status": zod.enum(['draft', 'issued', 'paid', 'shipped', 'delivered', 'void']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullable(),
+  "customerName": zod.string(),
+  "customerCompany": zod.string().nullable(),
+  "customerEmail": zod.string().nullable(),
+  "customerPhone": zod.string().nullable(),
+  "customerTaxId": zod.string().nullable(),
+  "customerAddress": zod.string(),
+  "shipToName": zod.string().nullable(),
+  "shipToAddress": zod.string().nullable(),
+  "items": zod.array(zod.object({
+  "description": zod.string(),
+  "sku": zod.string(),
+  "quantity": zod.number(),
+  "unitPrice": zod.number(),
+  "taxRate": zod.number(),
+  "lineTotal": zod.number()
+})),
+  "currency": zod.string(),
+  "subtotal": zod.number(),
+  "taxAmount": zod.number(),
+  "shippingAmount": zod.number(),
+  "total": zod.number(),
+  "notes": zod.string(),
+  "terms": zod.string(),
+  "carrier": zod.string(),
+  "service": zod.string(),
+  "trackingNumber": zod.string(),
+  "shippingDate": zod.string().nullable(),
+  "packageWeight": zod.number().nullable(),
+  "packageLength": zod.number().nullable(),
+  "packageWidth": zod.number().nullable(),
+  "packageHeight": zod.number().nullable(),
+  "paymentMethod": zod.string(),
+  "includeStamp": zod.boolean(),
+  "companySnapshot": zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(listBusinessDocumentsResponseCompanySnapshotCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(listBusinessDocumentsResponseCompanySnapshotBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(listBusinessDocumentsResponseCompanySnapshotInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(listBusinessDocumentsResponseCompanySnapshotReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(listBusinessDocumentsResponseCompanySnapshotShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+}),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+export const ListBusinessDocumentsResponse = zod.array(ListBusinessDocumentsResponseItem)
+
+
+/**
+ * @summary Create a business document draft
+ */
+export const createBusinessDocumentBodyCustomerNameMax = 160;
+
+export const createBusinessDocumentBodyCustomerCompanyMax = 160;
+
+export const createBusinessDocumentBodyCustomerEmailMax = 254;
+
+export const createBusinessDocumentBodyCustomerPhoneMax = 80;
+
+export const createBusinessDocumentBodyCustomerTaxIdMax = 100;
+
+export const createBusinessDocumentBodyCustomerAddressMax = 1200;
+
+export const createBusinessDocumentBodyShipToNameMax = 160;
+
+export const createBusinessDocumentBodyShipToAddressMax = 1200;
+
+export const createBusinessDocumentBodyItemsItemDescriptionMax = 240;
+
+export const createBusinessDocumentBodyItemsItemSkuMax = 100;
+
+export const createBusinessDocumentBodyItemsItemQuantityMin = 0.01;
+
+export const createBusinessDocumentBodyItemsItemUnitPriceMin = 0;
+
+export const createBusinessDocumentBodyItemsItemTaxRateMin = 0;
+export const createBusinessDocumentBodyItemsItemTaxRateMax = 100;
+
+
+export const createBusinessDocumentBodyCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const createBusinessDocumentBodyShippingAmountMin = 0;
+
+export const createBusinessDocumentBodyNotesMax = 4000;
+
+export const createBusinessDocumentBodyTermsMax = 4000;
+
+export const createBusinessDocumentBodyCarrierMax = 120;
+
+export const createBusinessDocumentBodyServiceMax = 120;
+
+export const createBusinessDocumentBodyTrackingNumberMax = 160;
+
+export const createBusinessDocumentBodyPackageWeightMin = 0;
+
+export const createBusinessDocumentBodyPackageLengthMin = 0;
+
+export const createBusinessDocumentBodyPackageWidthMin = 0;
+
+export const createBusinessDocumentBodyPackageHeightMin = 0;
+
+export const createBusinessDocumentBodyPaymentMethodMax = 120;
+
+
+
+export const CreateBusinessDocumentBody = zod.object({
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullish(),
+  "customerName": zod.string().min(1).max(createBusinessDocumentBodyCustomerNameMax),
+  "customerCompany": zod.string().max(createBusinessDocumentBodyCustomerCompanyMax).nullish(),
+  "customerEmail": zod.string().max(createBusinessDocumentBodyCustomerEmailMax).nullish(),
+  "customerPhone": zod.string().max(createBusinessDocumentBodyCustomerPhoneMax).nullish(),
+  "customerTaxId": zod.string().max(createBusinessDocumentBodyCustomerTaxIdMax).nullish(),
+  "customerAddress": zod.string().max(createBusinessDocumentBodyCustomerAddressMax),
+  "shipToName": zod.string().max(createBusinessDocumentBodyShipToNameMax).nullish(),
+  "shipToAddress": zod.string().max(createBusinessDocumentBodyShipToAddressMax).nullish(),
+  "items": zod.array(zod.object({
+  "description": zod.string().min(1).max(createBusinessDocumentBodyItemsItemDescriptionMax),
+  "sku": zod.string().max(createBusinessDocumentBodyItemsItemSkuMax).optional(),
+  "quantity": zod.number().min(createBusinessDocumentBodyItemsItemQuantityMin),
+  "unitPrice": zod.number().min(createBusinessDocumentBodyItemsItemUnitPriceMin),
+  "taxRate": zod.number().min(createBusinessDocumentBodyItemsItemTaxRateMin).max(createBusinessDocumentBodyItemsItemTaxRateMax)
+})).min(1),
+  "currency": zod.string().regex(createBusinessDocumentBodyCurrencyRegExp),
+  "shippingAmount": zod.number().min(createBusinessDocumentBodyShippingAmountMin),
+  "notes": zod.string().max(createBusinessDocumentBodyNotesMax),
+  "terms": zod.string().max(createBusinessDocumentBodyTermsMax),
+  "carrier": zod.string().max(createBusinessDocumentBodyCarrierMax),
+  "service": zod.string().max(createBusinessDocumentBodyServiceMax),
+  "trackingNumber": zod.string().max(createBusinessDocumentBodyTrackingNumberMax),
+  "shippingDate": zod.string().nullish(),
+  "packageWeight": zod.number().min(createBusinessDocumentBodyPackageWeightMin).nullish(),
+  "packageLength": zod.number().min(createBusinessDocumentBodyPackageLengthMin).nullish(),
+  "packageWidth": zod.number().min(createBusinessDocumentBodyPackageWidthMin).nullish(),
+  "packageHeight": zod.number().min(createBusinessDocumentBodyPackageHeightMin).nullish(),
+  "paymentMethod": zod.string().max(createBusinessDocumentBodyPaymentMethodMax),
+  "includeStamp": zod.boolean()
+})
+
+export const createBusinessDocumentResponseCompanySnapshotCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const createBusinessDocumentResponseCompanySnapshotBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const createBusinessDocumentResponseCompanySnapshotInvoicePrefixMax = 12;
+
+export const createBusinessDocumentResponseCompanySnapshotReceiptPrefixMax = 12;
+
+export const createBusinessDocumentResponseCompanySnapshotShippingPrefixMax = 12;
+
+
+
+export const CreateBusinessDocumentResponse = zod.object({
+  "id": zod.number(),
+  "number": zod.string(),
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "status": zod.enum(['draft', 'issued', 'paid', 'shipped', 'delivered', 'void']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullable(),
+  "customerName": zod.string(),
+  "customerCompany": zod.string().nullable(),
+  "customerEmail": zod.string().nullable(),
+  "customerPhone": zod.string().nullable(),
+  "customerTaxId": zod.string().nullable(),
+  "customerAddress": zod.string(),
+  "shipToName": zod.string().nullable(),
+  "shipToAddress": zod.string().nullable(),
+  "items": zod.array(zod.object({
+  "description": zod.string(),
+  "sku": zod.string(),
+  "quantity": zod.number(),
+  "unitPrice": zod.number(),
+  "taxRate": zod.number(),
+  "lineTotal": zod.number()
+})),
+  "currency": zod.string(),
+  "subtotal": zod.number(),
+  "taxAmount": zod.number(),
+  "shippingAmount": zod.number(),
+  "total": zod.number(),
+  "notes": zod.string(),
+  "terms": zod.string(),
+  "carrier": zod.string(),
+  "service": zod.string(),
+  "trackingNumber": zod.string(),
+  "shippingDate": zod.string().nullable(),
+  "packageWeight": zod.number().nullable(),
+  "packageLength": zod.number().nullable(),
+  "packageWidth": zod.number().nullable(),
+  "packageHeight": zod.number().nullable(),
+  "paymentMethod": zod.string(),
+  "includeStamp": zod.boolean(),
+  "companySnapshot": zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(createBusinessDocumentResponseCompanySnapshotCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(createBusinessDocumentResponseCompanySnapshotBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(createBusinessDocumentResponseCompanySnapshotInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(createBusinessDocumentResponseCompanySnapshotReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(createBusinessDocumentResponseCompanySnapshotShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+}),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+
+
+/**
+ * @summary Update a business document draft
+ */
+export const UpdateBusinessDocumentParams = zod.object({
+  "id": zod.coerce.number().int()
+})
+
+export const updateBusinessDocumentBodyCustomerNameMax = 160;
+
+export const updateBusinessDocumentBodyCustomerCompanyMax = 160;
+
+export const updateBusinessDocumentBodyCustomerEmailMax = 254;
+
+export const updateBusinessDocumentBodyCustomerPhoneMax = 80;
+
+export const updateBusinessDocumentBodyCustomerTaxIdMax = 100;
+
+export const updateBusinessDocumentBodyCustomerAddressMax = 1200;
+
+export const updateBusinessDocumentBodyShipToNameMax = 160;
+
+export const updateBusinessDocumentBodyShipToAddressMax = 1200;
+
+export const updateBusinessDocumentBodyItemsItemDescriptionMax = 240;
+
+export const updateBusinessDocumentBodyItemsItemSkuMax = 100;
+
+export const updateBusinessDocumentBodyItemsItemQuantityMin = 0.01;
+
+export const updateBusinessDocumentBodyItemsItemUnitPriceMin = 0;
+
+export const updateBusinessDocumentBodyItemsItemTaxRateMin = 0;
+export const updateBusinessDocumentBodyItemsItemTaxRateMax = 100;
+
+
+export const updateBusinessDocumentBodyCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const updateBusinessDocumentBodyShippingAmountMin = 0;
+
+export const updateBusinessDocumentBodyNotesMax = 4000;
+
+export const updateBusinessDocumentBodyTermsMax = 4000;
+
+export const updateBusinessDocumentBodyCarrierMax = 120;
+
+export const updateBusinessDocumentBodyServiceMax = 120;
+
+export const updateBusinessDocumentBodyTrackingNumberMax = 160;
+
+export const updateBusinessDocumentBodyPackageWeightMin = 0;
+
+export const updateBusinessDocumentBodyPackageLengthMin = 0;
+
+export const updateBusinessDocumentBodyPackageWidthMin = 0;
+
+export const updateBusinessDocumentBodyPackageHeightMin = 0;
+
+export const updateBusinessDocumentBodyPaymentMethodMax = 120;
+
+
+
+export const UpdateBusinessDocumentBody = zod.object({
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullish(),
+  "customerName": zod.string().min(1).max(updateBusinessDocumentBodyCustomerNameMax),
+  "customerCompany": zod.string().max(updateBusinessDocumentBodyCustomerCompanyMax).nullish(),
+  "customerEmail": zod.string().max(updateBusinessDocumentBodyCustomerEmailMax).nullish(),
+  "customerPhone": zod.string().max(updateBusinessDocumentBodyCustomerPhoneMax).nullish(),
+  "customerTaxId": zod.string().max(updateBusinessDocumentBodyCustomerTaxIdMax).nullish(),
+  "customerAddress": zod.string().max(updateBusinessDocumentBodyCustomerAddressMax),
+  "shipToName": zod.string().max(updateBusinessDocumentBodyShipToNameMax).nullish(),
+  "shipToAddress": zod.string().max(updateBusinessDocumentBodyShipToAddressMax).nullish(),
+  "items": zod.array(zod.object({
+  "description": zod.string().min(1).max(updateBusinessDocumentBodyItemsItemDescriptionMax),
+  "sku": zod.string().max(updateBusinessDocumentBodyItemsItemSkuMax).optional(),
+  "quantity": zod.number().min(updateBusinessDocumentBodyItemsItemQuantityMin),
+  "unitPrice": zod.number().min(updateBusinessDocumentBodyItemsItemUnitPriceMin),
+  "taxRate": zod.number().min(updateBusinessDocumentBodyItemsItemTaxRateMin).max(updateBusinessDocumentBodyItemsItemTaxRateMax)
+})).min(1),
+  "currency": zod.string().regex(updateBusinessDocumentBodyCurrencyRegExp),
+  "shippingAmount": zod.number().min(updateBusinessDocumentBodyShippingAmountMin),
+  "notes": zod.string().max(updateBusinessDocumentBodyNotesMax),
+  "terms": zod.string().max(updateBusinessDocumentBodyTermsMax),
+  "carrier": zod.string().max(updateBusinessDocumentBodyCarrierMax),
+  "service": zod.string().max(updateBusinessDocumentBodyServiceMax),
+  "trackingNumber": zod.string().max(updateBusinessDocumentBodyTrackingNumberMax),
+  "shippingDate": zod.string().nullish(),
+  "packageWeight": zod.number().min(updateBusinessDocumentBodyPackageWeightMin).nullish(),
+  "packageLength": zod.number().min(updateBusinessDocumentBodyPackageLengthMin).nullish(),
+  "packageWidth": zod.number().min(updateBusinessDocumentBodyPackageWidthMin).nullish(),
+  "packageHeight": zod.number().min(updateBusinessDocumentBodyPackageHeightMin).nullish(),
+  "paymentMethod": zod.string().max(updateBusinessDocumentBodyPaymentMethodMax),
+  "includeStamp": zod.boolean()
+})
+
+export const updateBusinessDocumentResponseCompanySnapshotCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const updateBusinessDocumentResponseCompanySnapshotBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const updateBusinessDocumentResponseCompanySnapshotInvoicePrefixMax = 12;
+
+export const updateBusinessDocumentResponseCompanySnapshotReceiptPrefixMax = 12;
+
+export const updateBusinessDocumentResponseCompanySnapshotShippingPrefixMax = 12;
+
+
+
+export const UpdateBusinessDocumentResponse = zod.object({
+  "id": zod.number(),
+  "number": zod.string(),
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "status": zod.enum(['draft', 'issued', 'paid', 'shipped', 'delivered', 'void']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullable(),
+  "customerName": zod.string(),
+  "customerCompany": zod.string().nullable(),
+  "customerEmail": zod.string().nullable(),
+  "customerPhone": zod.string().nullable(),
+  "customerTaxId": zod.string().nullable(),
+  "customerAddress": zod.string(),
+  "shipToName": zod.string().nullable(),
+  "shipToAddress": zod.string().nullable(),
+  "items": zod.array(zod.object({
+  "description": zod.string(),
+  "sku": zod.string(),
+  "quantity": zod.number(),
+  "unitPrice": zod.number(),
+  "taxRate": zod.number(),
+  "lineTotal": zod.number()
+})),
+  "currency": zod.string(),
+  "subtotal": zod.number(),
+  "taxAmount": zod.number(),
+  "shippingAmount": zod.number(),
+  "total": zod.number(),
+  "notes": zod.string(),
+  "terms": zod.string(),
+  "carrier": zod.string(),
+  "service": zod.string(),
+  "trackingNumber": zod.string(),
+  "shippingDate": zod.string().nullable(),
+  "packageWeight": zod.number().nullable(),
+  "packageLength": zod.number().nullable(),
+  "packageWidth": zod.number().nullable(),
+  "packageHeight": zod.number().nullable(),
+  "paymentMethod": zod.string(),
+  "includeStamp": zod.boolean(),
+  "companySnapshot": zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(updateBusinessDocumentResponseCompanySnapshotCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(updateBusinessDocumentResponseCompanySnapshotBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(updateBusinessDocumentResponseCompanySnapshotInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(updateBusinessDocumentResponseCompanySnapshotReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(updateBusinessDocumentResponseCompanySnapshotShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+}),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+
+
+/**
+ * @summary Delete a business document draft
+ */
+export const DeleteBusinessDocumentParams = zod.object({
+  "id": zod.coerce.number().int()
+})
+
+export const DeleteBusinessDocumentResponse = zod.void()
+
+
+/**
+ * @summary Advance a business document status
+ */
+export const UpdateBusinessDocumentStatusParams = zod.object({
+  "id": zod.coerce.number().int()
+})
+
+export const UpdateBusinessDocumentStatusBody = zod.object({
+  "status": zod.enum(['issued', 'paid', 'shipped', 'delivered', 'void'])
+})
+
+export const updateBusinessDocumentStatusResponseCompanySnapshotCurrencyRegExp = new RegExp('^[A-Z]{3}$');
+export const updateBusinessDocumentStatusResponseCompanySnapshotBrandColorRegExp = new RegExp('^#[0-9A-Fa-f]{6}$');
+export const updateBusinessDocumentStatusResponseCompanySnapshotInvoicePrefixMax = 12;
+
+export const updateBusinessDocumentStatusResponseCompanySnapshotReceiptPrefixMax = 12;
+
+export const updateBusinessDocumentStatusResponseCompanySnapshotShippingPrefixMax = 12;
+
+
+
+export const UpdateBusinessDocumentStatusResponse = zod.object({
+  "id": zod.number(),
+  "number": zod.string(),
+  "documentType": zod.enum(['invoice', 'receipt', 'shipping']),
+  "status": zod.enum(['draft', 'issued', 'paid', 'shipped', 'delivered', 'void']),
+  "issueDate": zod.string(),
+  "dueDate": zod.string().nullable(),
+  "customerName": zod.string(),
+  "customerCompany": zod.string().nullable(),
+  "customerEmail": zod.string().nullable(),
+  "customerPhone": zod.string().nullable(),
+  "customerTaxId": zod.string().nullable(),
+  "customerAddress": zod.string(),
+  "shipToName": zod.string().nullable(),
+  "shipToAddress": zod.string().nullable(),
+  "items": zod.array(zod.object({
+  "description": zod.string(),
+  "sku": zod.string(),
+  "quantity": zod.number(),
+  "unitPrice": zod.number(),
+  "taxRate": zod.number(),
+  "lineTotal": zod.number()
+})),
+  "currency": zod.string(),
+  "subtotal": zod.number(),
+  "taxAmount": zod.number(),
+  "shippingAmount": zod.number(),
+  "total": zod.number(),
+  "notes": zod.string(),
+  "terms": zod.string(),
+  "carrier": zod.string(),
+  "service": zod.string(),
+  "trackingNumber": zod.string(),
+  "shippingDate": zod.string().nullable(),
+  "packageWeight": zod.number().nullable(),
+  "packageLength": zod.number().nullable(),
+  "packageWidth": zod.number().nullable(),
+  "packageHeight": zod.number().nullable(),
+  "paymentMethod": zod.string(),
+  "includeStamp": zod.boolean(),
+  "companySnapshot": zod.object({
+  "companyName": zod.string(),
+  "legalName": zod.string(),
+  "address": zod.string(),
+  "city": zod.string(),
+  "postalCode": zod.string(),
+  "country": zod.string(),
+  "phone": zod.string(),
+  "email": zod.string(),
+  "website": zod.string(),
+  "taxId": zod.string(),
+  "registrationNumber": zod.string(),
+  "currency": zod.string().regex(updateBusinessDocumentStatusResponseCompanySnapshotCurrencyRegExp),
+  "logoUrl": zod.string(),
+  "stampUrl": zod.string(),
+  "includeStampByDefault": zod.boolean(),
+  "brandColor": zod.string().regex(updateBusinessDocumentStatusResponseCompanySnapshotBrandColorRegExp),
+  "invoicePrefix": zod.string().min(1).max(updateBusinessDocumentStatusResponseCompanySnapshotInvoicePrefixMax),
+  "receiptPrefix": zod.string().min(1).max(updateBusinessDocumentStatusResponseCompanySnapshotReceiptPrefixMax),
+  "shippingPrefix": zod.string().min(1).max(updateBusinessDocumentStatusResponseCompanySnapshotShippingPrefixMax),
+  "paymentInstructions": zod.string(),
+  "footerNote": zod.string()
+}),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+
+
