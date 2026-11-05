@@ -40,7 +40,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDownRight, ArrowRight, Building2, Check, ChevronDown, ChevronLeft, ChevronRight, Cloud, Database, Factory, Globe2, GraduationCap, Headphones, Menu, Network, Quote, Search, ShieldCheck, ShoppingBag, Sparkles, X, Zap } from 'lucide-react';
+import { ArrowDownRight, ArrowRight, Building2, Check, ChevronDown, ChevronLeft, ChevronRight, Cloud, Database, Factory, Globe2, GraduationCap, Headphones, Menu, Network, Quote, Search, ShieldCheck, ShoppingBag, X, Zap } from 'lucide-react';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { type SupportedLanguage, useTranslation, I18nProvider } from '@/lib/i18n';
 import { OfficialDocumentsSection, CompanyDocumentsManagement } from '@/components/company-documents';
@@ -495,7 +495,7 @@ function LogoRail() {
 
 function About() {
   const { t } = useTranslation();
-  return <section id="about" className="section-pad bg-[#f8fafc]"><div className="container-wide grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end"><div><p className="eyebrow text-[#00a676]">{t('about.eyebrow')}</p><h2 className="mt-4 max-w-[600px] font-display text-[clamp(2.25rem,4vw,3.7rem)] font-extrabold leading-[1.08] tracking-[-.06em] text-[#0b1f3a]">{t('about.title')}</h2><p className="mt-6 max-w-[570px] text-[16px] leading-8 text-slate-600">{t('about.description')}</p><div className="mt-8 flex flex-wrap items-center gap-4"><span className="grid h-11 w-11 place-items-center rounded-full bg-[#dff6ed] text-[#00865f]"><Sparkles size={19} /></span><p className="max-w-sm text-sm leading-6 text-slate-600"><strong className="text-[#0b1f3a]">{t('about.highlight')}</strong> {t('about.highlightText')}</p><a href="/about" data-testid="link-home-about" className="inline-flex items-center gap-2 text-sm font-bold text-[#00a676] hover:text-[#006d52]">{t('about.readStory')} <ArrowRight size={15} /></a></div></div><div className="grid grid-cols-2 gap-x-8 gap-y-8 border-t border-[#dbe4eb] pt-8 sm:grid-cols-4 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">{[['12+', 'years of perspective'], ['27', 'markets supplied'], ['98.4%', 'on-time delivery'], ['1', 'accountable partner']].map(([num, label]) => <div key={label}><p className="font-display text-3xl font-extrabold tracking-[-.06em] text-[#0b1f3a]">{num}</p><p className="mt-2 max-w-[100px] text-xs leading-5 text-slate-500">{label}</p></div>)}</div></div></section>;
+  return <section id="about" className="section-pad bg-[#f8fafc]"><div className="container-wide grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end"><div><p className="eyebrow text-[#00a676]">{t('about.eyebrow')}</p><h2 className="mt-4 max-w-[600px] font-display text-[clamp(2.25rem,4vw,3.7rem)] font-extrabold leading-[1.08] tracking-[-.06em] text-[#0b1f3a]">{t('about.title')}</h2><p className="mt-6 max-w-[570px] text-[16px] leading-8 text-slate-600">{t('about.description')}</p><div className="mt-8 flex flex-wrap items-center gap-4"><p className="max-w-sm text-sm leading-6 text-slate-600"><strong className="text-[#0b1f3a]">{t('about.highlight')}</strong> {t('about.highlightText')}</p><a href="/about" data-testid="link-home-about" className="inline-flex items-center gap-2 text-sm font-bold text-[#00a676] hover:text-[#006d52]">{t('about.readStory')} <ArrowRight size={15} /></a></div></div><div className="grid grid-cols-2 gap-x-8 gap-y-8 border-t border-[#dbe4eb] pt-8 sm:grid-cols-4 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">{[['12+', 'years of perspective'], ['27', 'markets supplied'], ['98.4%', 'on-time delivery'], ['1', 'accountable partner']].map(([num, label]) => <div key={label}><p className="font-display text-3xl font-extrabold tracking-[-.06em] text-[#0b1f3a]">{num}</p><p className="mt-2 max-w-[100px] text-xs leading-5 text-slate-500">{label}</p></div>)}</div></div></section>;
 }
 
 function AboutPage() {
@@ -513,7 +513,7 @@ function AboutPage() {
           <div className="container-wide grid min-h-[70vh] place-items-center py-20 text-center"><div><p className="font-display text-2xl font-bold text-[#0b1f3a]">{t('about.homeLabel')}</p><p className="mt-2 text-sm text-slate-500">{t('about.homeDescription')}</p></div></div>
         ) : (
           <>
-            <section className="relative overflow-hidden bg-[#0b1f3a] py-24 text-white sm:py-32">
+            <section className="relative overflow-hidden bg-[#064e3b] py-24 text-white sm:py-32">
               <div className="absolute inset-0 navy-grid opacity-25" />
               <div className="container-wide relative grid gap-12 lg:grid-cols-[1.04fr_.96fr] lg:items-center">
                 <div>
@@ -522,7 +522,7 @@ function AboutPage() {
                   <p className="mt-7 max-w-2xl text-[17px] leading-8 text-[#c6d4e0]">{rebrandCompanyCopy(data.intro)}</p>
                 </div>
                 <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-white/15 bg-white/[.06]">
-                  {data.imagePath ? <img src={data.imagePath} alt="" className="h-full min-h-[280px] w-full object-cover" /> : <div className="absolute inset-0 grid place-items-center"><div className="h-48 w-48 rounded-full border border-[#78d8bc]/25 bg-[#163b56]/60 shadow-[0_0_0_30px_rgba(120,216,188,.04),0_0_0_70px_rgba(120,216,188,.03)]" /><span className="absolute bottom-7 left-7 eyebrow text-[#78d8bc]">Hungary-based · Globally connected</span></div>}
+                  {data.imagePath ? <img src={data.imagePath} alt="" className="h-full min-h-[280px] w-full object-cover" /> : <div className="absolute inset-0 grid place-items-center"><div className="h-48 w-48 rounded-full border border-[#78d8bc]/25 bg-[#1c6b50]/60 shadow-[0_0_0_30px_rgba(120,216,188,.04),0_0_0_70px_rgba(120,216,188,.03)]" /><span className="absolute bottom-7 left-7 eyebrow text-[#78d8bc]">Hungary-based · Globally connected</span></div>}
                 </div>
               </div>
             </section>
@@ -572,7 +572,7 @@ function MarketplaceTeaser({ onQuote }: { onQuote: (product?: string) => void })
   const number = useWhatsAppNumber();
 
   return (
-    <section id="marketplace" className="section-pad bg-[#0b1f3a] text-white">
+    <section id="marketplace" className="section-pad bg-[#064e3b] text-white">
       <div className="container-wide">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
@@ -652,7 +652,7 @@ function MarketplacePage({ onQuote }: { onQuote: (product?: string) => void }) {
     <div className="site-shell min-h-screen bg-[#f5f8fa]">
       <Header onQuote={() => onQuote()} solid />
       <main className="pt-[74px]">
-        <section className="bg-[#0b1f3a] py-20 text-white sm:py-28">
+        <section className="bg-[#064e3b] py-20 text-white sm:py-28">
           <div className="container-wide">
             <p className="eyebrow text-[#78d8bc]">{t('marketplace.homepageTitle')}</p>
             <h1 className="mt-5 max-w-3xl font-display text-[clamp(2.7rem,6vw,5.2rem)] font-extrabold leading-[1.02] tracking-[-.07em]">
