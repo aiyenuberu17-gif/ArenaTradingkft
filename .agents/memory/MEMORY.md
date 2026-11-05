@@ -1,0 +1,1 @@
+- [Render free database](render-free-database.md) — User accepted the 30-day free plan; confirm before upgrading and protect data before expiration.
